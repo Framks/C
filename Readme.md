@@ -1,0 +1,2 @@
+aqui estão os meus primeiros passos na linguagem C, com as aulas de Fundamentos da programação. Na Universidade Federal do Ceará.
+dentro do arquivo de cada código está o enunciado da questão e descrição do que o codigo faz.
