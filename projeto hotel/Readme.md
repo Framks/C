@@ -1,0 +1,2 @@
+Este é o projeto de Fundamentos da progamação onde estamos fazendo um prototipo de um sistema para hotel onde os nomes utilizados e dados são enteiramente fictícios.
+Assim como o desenrolar da aplicação é de inteira utilização pedagógica.
