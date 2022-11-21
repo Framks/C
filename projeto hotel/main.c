@@ -36,7 +36,7 @@ int main()
         printf("para navegar no menu de op\x87oes\n");
         printf("digite o numero correspondente da\n");
         printf("op\x87\x83o\n\n");
-        printf("[0] Sair\n [1] Verificar a Disponibilidade do quarto.\n");
+        printf("[0] Sair\n [1] Verificar a Disponibilidade do quarto.\n[1] Cadastrar novos hospedes.\n");
         scanf(" %d",&rodar_menu);
 
         switch (rodar_menu)
