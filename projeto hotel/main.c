@@ -1,9 +1,5 @@
 #include <stdio.h>
-/*
-inserir
-excluir 
-listar
-*/
+
 void quartos()
 {
     int i;
