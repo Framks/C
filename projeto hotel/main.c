@@ -31,10 +31,8 @@ int main()
     system("cls");
     while (rodar_menu)
     {
-        printf("|---------------------------------------------|\n|            Bem vindo ao programa            |
-        \n|              Hotel Phoenix                  |\n|---------------------------------------------|\n");
-        printf("\nEste \x82 o programa do hotel onde voc\x88 pode ver \nas disponibilidade dos quartos,
-        \nos h\xa2spedes e cadastralos excluirem.\n\n");
+        printf("|---------------------------------------------|\n|            Bem vindo ao programa            |\n|              Hotel Phoenix                  |\n|---------------------------------------------|\n");
+        printf("\nEste \x82 o programa do hotel onde voc\x88 pode ver \nas disponibilidade dos quartos,\nos h\xa2spedes e cadastralos excluirem.\n\n");
         printf("para navegar no menu de op\x87oes\n");
         printf("digite o numero correspondente da\n");
         printf("op\x87\x83o\n\n");
