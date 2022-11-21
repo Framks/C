@@ -31,9 +31,14 @@ int main()
     system("cls");
     while (rodar_menu)
     {
-        printf("|---------------------------------------------|\n|            Bem vindo ao programa            |\n|              Hotel Phoenix                  |\n|---------------------------------------------|\n");
-        printf("\nEste \x82 o programa do hotel onde voc\x88 pode ver \nas disponibilidade dos quartos,\nos h\xa2spedes e cadastralos excluirem.\n\n");
-        printf("[0] Sair do aplicativo\n[1] verificar os quartos disponiveis.\n[2] Cadastrar novos hospedes.\n[3] Verificar os hospedes cadastrados.\n");
+        printf("|---------------------------------------------|\n|            Bem vindo ao programa            |
+        \n|              Hotel Phoenix                  |\n|---------------------------------------------|\n");
+        printf("\nEste \x82 o programa do hotel onde voc\x88 pode ver \nas disponibilidade dos quartos,
+        \nos h\xa2spedes e cadastralos excluirem.\n\n");
+        printf("para navegar no menu de op\x87oes\n");
+        printf("digite o numero correspondente da\n");
+        printf("op\x87\x83o\n\n");
+        printf("[0] Sair\n [1] Verificar a Disponibilidade do quarto.\n");
         scanf(" %d",&rodar_menu);
 
         switch (rodar_menu)
