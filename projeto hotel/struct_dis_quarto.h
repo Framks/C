@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 extern void listar_hospede();
 
@@ -61,9 +62,10 @@ void listar_quartos()
 
 void despejar_hospede()
 {
+    listar_quartos();
     int aux;
     char f = 'f';
-    listar_quartos();
-    scanf("digite o numero do quarto a ser vago: %d",&aux);
+    printf("digite o numero do quarto a ser vago: ");
+    scanf("%d",&aux);
     printf("o quarto de numero %d sera vago e o hospede %c sera despejado",aux, f);
 }

@@ -89,7 +89,8 @@ void excluir_hospede()
 {
     int a;
     listar_hospede();
-    scanf("digite o id do hospede a ser excluido: %d",&a);
+    printf("digite o id do hospede a ser excluido: ");
+    scanf("%d",&a);
     printf("o hospede de id %d sera excluido do sistema.",a);
     scanf("%d",&a);
 }
