@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "struct_hospede.h": "c",
+        "struct_dis_quarto.h": "c"
+    }
+}
