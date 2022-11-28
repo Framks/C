@@ -36,17 +36,17 @@ hospede le_hospede()
     scanf(" %[^\n]",h.email);
 
     printf("digite os 11 digitos do cpf do hospede: ");
-    scanf("%[^\n]",h.cpf);
+    scanf(" %[^\n]",h.cpf);
 
     printf("digite a data de nascimento do hospede (apenas digitos): ");
-    scanf("%[^\n]",h.data_nascimento);
+    scanf(" %[^\n]",h.data_nascimento);
 
     printf("digite o numero do hospede: ");
-    scanf("%[^\n]",h.celular);
+    scanf(" %[^\n]",h.celular);
 
     listar_quartos_vagos();
     printf("\nEscolha um dos quartos para o hospede: ");
-    scanf("%[^\n]",h.usando_quarto);
+    scanf("%d",h.usando_quarto);
 
     printf("se tiver algum complemento ou especificidade(se nao digite 0): ");
     scanf(" %[^\n]",h.outros);
@@ -59,22 +59,23 @@ void inserir_hospede()
     /*
         essa parte da função cuida da leitura de todo o arquivo hospede.txt para guardar em um vetor 
     */
+
     hospede y, *vetor;
     vetor[0] = le_hospede();
     int n = 1;
     FILE *f = fopen("hospede.txt","r");
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
     {
         n++;
-        vetor = (hospede*) realloc(vetor, n * sizeof(hospede));
+        vetor = (hospede *)realloc(vetor, n * sizeof(hospede));
         vetor[n-1] = y;
     }
     fclose(f);
     /*
         essa parte cuida de acresentar mais 1 hospede no caso o novo
     */
-    FILE *ff = fopen("hospede.txt","w");
 
+    FILE *ff = fopen("hospede.txt","w");
     for(int a=0;a<n;a++)
     {
         fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
@@ -111,15 +112,38 @@ void excluir_hospede()
     scanf("%d",&a);
     if(a)
     {
-        hospede y,*vetor;
+        hospede *vetor;
         int n=1;
-        FILE *f = fopen("hospede.txt","r");
-        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%ld\n%ld\n%ld\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,&y.cpf,&y.data_nascimento,&y.celular,y.outros) == 9)
+        vetor = vetor_hospede(vetor);
+        for (int i = 0; i < n; i++)
         {
-            vetor = (hospede*) realloc(vetor, n * sizeof(hospede));
-            vetor[n-1] = y;
-            n++;
+            if(vetor[i].id==a)
+            {
+                vetor[i] = vetor[n-1];
+                break;
+            }
         }
-        fclose(f);
+        vetor = (hospede*) realloc(vetor,(n-1) * sizeof(hospede));
+        FILE *ff = fopen("hospede.txt","w");
+        for(int i = 0;i<(n-1);i++)
+        {
+            fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
+        }
+        fclose(ff);
     }
+}
+
+hospede *vetor_hospede(hospede *v)
+{
+    hospede y;
+    int n=1;
+    FILE *f = fopen("hospede.txt","w");
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
+    {
+        v = (hospede*)realloc(v, n*sizeof(hospede));
+        v[n-1] = y;
+        n++;
+    }
+    return v;
+    
 }

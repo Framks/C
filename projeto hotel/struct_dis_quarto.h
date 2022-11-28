@@ -64,10 +64,21 @@ void despejar_hospede()
 {
     listar_quartos();
     int aux;
-    char f = 'f';
+    char j[50];
     printf("digite o numero do quarto a ser vago: ");
     scanf("%d",&aux);
-    FILE *f = fopen("hospede.txt","r");
-    
-    printf("o quarto de numero %d sera vago e o hospede %c sera despejado",aux, f);
+    hospede *vetor;
+    vetor = vetor_hospede(vetor);
+    for ( int i = 0;vetor[i].nome; i++)
+    {
+        if(vetor[i].usando_quarto == aux)
+        {
+            for (int a = 0; vetor[i].nome[a]; a++)
+            {
+                j[a]=vetor[i].nome[a];
+            }
+            break;
+        }
+    }
+    printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, j);
 }
