@@ -43,7 +43,7 @@ void listar_quartos()
             printf("   ocupado   |");
             hospede y;
             FILE *ho = fopen("hospede.txt","r");
-            while (fscanf(ho,"%d\n%d\n%[^\n]\n%[^\n]\n%d\n%d\n%d\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,&y.cpf,&y.data_nascimento,&y.celular,y.outros) == 8)
+            while (fscanf(ho,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
             {
                 if (q.hospede_atual == y.id)
                 {
@@ -67,5 +67,7 @@ void despejar_hospede()
     char f = 'f';
     printf("digite o numero do quarto a ser vago: ");
     scanf("%d",&aux);
+    FILE *f = fopen("hospede.txt","r");
+    
     printf("o quarto de numero %d sera vago e o hospede %c sera despejado",aux, f);
 }
