@@ -57,7 +57,8 @@ void hospedes()
                 break;
             case 1:
                 inserir_hospede();
-                scanf("digite 1 para continuar: %d",&erro);
+                printf("digite 1 para continuar: ");
+                scanf("%d",&erro);
                 break;
             case 2:
                 listar_hospede();
@@ -65,6 +66,7 @@ void hospedes()
                 break;
             case 3:
                 excluir_hospede();
+                scanf("%d",&erro);
                 break;
             default:
                 printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!\n");
