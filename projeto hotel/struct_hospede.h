@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-extern void listar_quartos_vagos();
-extern void listar_quartos();
-extern void despejar_hospede();
-
 typedef struct
 {
     /* 
@@ -16,9 +11,9 @@ typedef struct
     int usando_quarto;
     char nome[50];
     char email[50];
-    char cpf[11];
-    char data_nascimento[8];
-    char celular[11];
+    char cpf[14];
+    char data_nascimento[12];
+    char celular[15];
     char outros[50];
 }hospede;
 
@@ -60,18 +55,21 @@ void inserir_hospede()
         essa parte da função cuida da leitura de todo o arquivo hospede.txt para guardar em um vetor 
     */
 
-    hospede y, *vetor;
+    hospede y, *vetor = 0;
     int n = 1,idmaior =0;
     FILE *f = fopen("hospede.txt","r");
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n",&vetor[n-1].id,&vetor[n-1].usando_quarto,vetor[n-1].nome,vetor[n-1].email,vetor[n-1].cpf,vetor[n-1].data_nascimento,vetor[n-1].celular,vetor[n-1].outros) == 8)
+    hospede h;
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
     {
-        n++;
-        vetor = (hospede *)realloc(vetor, n * sizeof(hospede));
-        if(y.id <= idmaior)
+        if(h.id >= idmaior)
         {
-            idmaior = y.id;
+            idmaior = h.id;
         }
+        vetor = (hospede *)realloc(vetor, n * sizeof(hospede));
+        vetor[n-1] = h;
+        n++;
     }
+    vetor = (hospede*) realloc(vetor, n * sizeof(hospede));
     vetor[n-1] = le_hospede();
     vetor[n-1].id = idmaior + 1;
     fclose(f);
@@ -84,25 +82,33 @@ void inserir_hospede()
     {
         fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
     }
-    fclose(ff);
     alocar_quarto(idmaior,vetor[n-1].usando_quarto);
+    fclose(ff);
+    free(vetor);
 }
 
 void listar_hospede()
 {
     hospede y;
     FILE *f = fopen("hospede.txt","r");
-    printf("ID |      Nome    |       email      |    cpf   |  data de nascimeto  |    contato   |quarto| outras informacoes|\n");
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
+    system("cls");
+    while (fscanf(f," %d %d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
     {
-        printf(" %d |%s| %s|%s|%s|%s|   %d  |",y.id,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.usando_quarto);
-        if (y.outros == '0')
+        printf("Id: %d\n",y.id);
+        printf("Nome: %s\n",y.nome);
+        printf("Email: %s\n",y.email);
+        printf("Cpf: %s\n",y.cpf);
+        printf("Data de nascimento: %s\n",y.data_nascimento);
+        printf("Celular: %s\n",y.celular);
+        printf("Quarto usado: %d\n",y.usando_quarto);
+        if (y.outros[0] == '0')
         {
-            printf("|                   |\n");
+            printf("sem informacoes adicionais.\n");
         }else
         {
-            printf("%s\n",y.outros);
+            printf("Infomacoes adicionais%s\n",y.outros);
         }
+        printf("=====================================\n");
     }
     fclose(f);
 }
@@ -113,19 +119,21 @@ void excluir_hospede()
     listar_hospede();
     printf("digite o id do hospede a ser excluido: ");
     scanf("%d",&a);
-    printf("o hospede de id %d sera excluido do sistema. para confirmar digite\n novamente o numro do id: ",a);
+    printf("o hospede de id %d sera excluido do sistema. para confirmar digite\nnovamente o numro do id: ",a);
     scanf("%d",&a);
     if(a)
     {
-        hospede *vetor;
+        hospede *vetor =0,h;
         int n=1;
-        FILE *f = fopen("hospede.txt","w");
-        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n\n%[^\n]\n%[^\n]\n%[^\n]",&vetor[n-1].id,&vetor[n-1].usando_quarto,vetor[n-1].nome,vetor[n-1].email,vetor[n-1].cpf,vetor[n-1].data_nascimento,vetor[n-1].celular,vetor[n-1].outros) == 8)
+        FILE *f = fopen("hospede.txt","r");
+        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n\n%[^\n]\n%[^\n]\n%[^\n]",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
         {
-            n++;
             vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
+            vetor[n-1] = h;
+            n++;
         }
         n--;
+        //desalocar_quarto();
         for (int i = 0; i < n; i++)
         {
             if(vetor[i].id==a)
@@ -141,5 +149,6 @@ void excluir_hospede()
             fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
         }
         fclose(ff);
+        free(vetor);
     }
 }

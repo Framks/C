@@ -7,11 +7,11 @@ void quartos()
     /*
         listar de imediato os quartos vagos e ocupados
     */
-    int i=1,erro;
+    int i=1,erro , a,b;
     while (i)
     {
-        system("cls");
-        printf("[0] Volta ao menu principal.\n[1] listar os quartos vagos.\n[2] Listar todos os quartos.\n[3] Despejar hospede\n");
+        system("cls");                          // limpar tela
+        printf("[0] Volta ao menu principal.\n[1] listar os quartos vagos.\n[2] Listar todos os quartos.\n[3] Despejar hospede\n[4] Hospedar cliente cadastrado\n");
         scanf("%d",&i);
         switch(i)
         {
@@ -28,6 +28,18 @@ void quartos()
             case 3:
                 despejar_hospede();
                 scanf("%d",&erro);
+                break;
+            case 4:
+                listar_hospede();
+                listar_quartos_vagos();
+                printf("digite o id do usuario e o numero do quarto, respectivamente: ");
+                scanf("%d %d",&a,&b);
+                if((a && b) !=0)
+                {
+                    alocar_quarto(a,b);
+                }else{
+                    printf("por favor digite um numero diferente de 0");
+                }
                 break;
             default:
                 printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!\n");
@@ -57,20 +69,27 @@ void hospedes()
                 break;
             case 1:
                 inserir_hospede();
-                printf("digite 1 para continuar: ");
-                scanf("%d",&erro);
+                printf("tecle enter para ir ao menu: ");
+                getchar();
+                getchar();
                 break;
             case 2:
                 listar_hospede();
-                scanf("%d",&erro);
+                printf("tecle enter para ir ao menu: ");
+                getchar();
+                getchar();
                 break;
             case 3:
                 excluir_hospede();
-                scanf("%d",&erro);
+                printf("tecle enter para ir ao menu: ");
+                getchar();
+                getchar();
                 break;
             default:
                 printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!\n");
-                scanf("%d",&erro);
+                printf("tecle enter para ir ao menu: ");
+                getchar();
+                getchar();
             break;
         }
     }
@@ -79,7 +98,7 @@ void hospedes()
 int main()
 {
     int rodar_menu=1,erro=0;
-    system("cls");
+    system("cls");                  // limpar tela de saida
     while (rodar_menu)
     {
         printf("|---------------------------------------------|\n|            Bem vindo ao programa            |\n|              Hotel Phoenix                  |\n|---------------------------------------------|\n");
@@ -97,6 +116,7 @@ int main()
             */
         case 0:
             break;
+
         case 1:
             quartos();
         	break;
@@ -107,9 +127,11 @@ int main()
 
         default:
             printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!");
-            scanf("%d",&erro);
+            getchar();
+            getchar();
             break;
         }
     }
-    return 1;
+    system("cls");
+    printf("volte sempre!!!");
 }

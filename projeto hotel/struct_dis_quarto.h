@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern void listar_hospede();
-
 typedef struct
 {
     int id;
@@ -67,38 +65,42 @@ void despejar_hospede()
     char j[50];
     printf("digite o numero do quarto a ser vago: ");
     scanf("%d",&aux);
-    int n=1;
-    hospede *vetor,y;
-    FILE *f = fopen("hospede.txt","w");
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
-    {
-        vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
-        vetor[n-1] = y;
-        n++;
-    }
-    for ( int i = 0;vetor[i].nome; i++)
-    {
-        if(vetor[i].usando_quarto == aux)
+    if(aux !=0){
+        int n=1;
+        hospede *vetor = 0,y;
+        FILE *f = fopen("hospede.txt","w");
+        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
         {
-            for (int a = 0; vetor[i].nome[a]; a++)
-            {
-                j[a]=vetor[i].nome[a];
-            }
-            break;
+            vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
+            vetor[n-1] = y;
+            n++;
         }
+        for ( int i = 0;vetor[i].nome; i++)
+        {
+            if(vetor[i].usando_quarto == aux)
+            {
+                for (int a = 0; vetor[i].nome[a]; a++)
+                {
+                    j[a]=vetor[i].nome[a];
+                }
+                break;
+            }
+        }
+        printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, j);
+        free(vetor);
     }
-    printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, j);
 }
 
 void alocar_quarto(int id_usuario, int id_quarto)
 {
-    quarto *q;
+    quarto *q=0, a;
     int n=1;
     FILE *jj = fopen("quarto.txt","r");
-    while (fscanf(jj,"%d %c %d",&q[n-1].id,&q[n-1].status,&q[n-1].hospede_atual) == 3)
+    while (fscanf(jj,"%d %c %d",&a.id,&a.status,&a.hospede_atual) == 3)
     {
-        n++;
         q = (quarto*) realloc(q, n * sizeof(quarto));
+        q[n-1] = a;
+        n++; 
     }
     for(int i =0; i<(n-1);i++){
         if(q[i].id == id_quarto)
@@ -113,7 +115,35 @@ void alocar_quarto(int id_usuario, int id_quarto)
     FILE *as = fopen("quarto.txt","w");
     for(int i=0;i<n-1;i++)
     {
-        fprintf(as,"%d %c %d",q[i].id,q[i].status,q[i].hospede_atual);
+        fprintf(as,"%d %c %d\n",q[i].id,q[i].status,q[i].hospede_atual);
     }
     fclose(as);
+
+    hospede *vetor = 0,y;
+    n = 1;
+    FILE *f = fopen("hospede.txt","r");
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
+    {
+        vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
+        vetor[n-1] = y;
+        n++;
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        if(vetor[i].id == id_usuario)
+        {
+            vetor[i].usando_quarto = id_quarto;
+            break;
+        }
+    }
+    free(f);
+    fclose(f);
+    FILE *ff = fopen("hospede.txt","w");
+    for (int a = 0; a < n; a++)
+    {
+        fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
+    }
+    fclose(ff);    
+    free(q);
 }
