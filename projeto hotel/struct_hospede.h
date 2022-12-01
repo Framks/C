@@ -137,17 +137,31 @@ void excluir_hospede()
             if(vetor[i].id==a)
             {
                 vetor[i] = vetor[n-1];
-                desalocar_quarto(a);
                 break;
             }
         }
         vetor = (hospede*) realloc(vetor,(n-1) * sizeof(hospede));
+        for (int i = 0; i < n-1; i++)
+        {
+            for (int ij = 1; ij < n-1; ij++)
+            {
+                if(vetor[ij].id<vetor[ij-1].id)
+                {
+                    h = vetor[ij-1];
+                    vetor[ij-1] = vetor[ij];
+                    vetor[ij] = h;
+                }
+            }
+                  
+        }
+        
         FILE *ff = fopen("hospede.txt","w");
         for(int i = 0;i<(n-1);i++)
         {
-            fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[a].id,vetor[a].usando_quarto,vetor[a].nome,vetor[a].email,vetor[a].cpf,vetor[a].data_nascimento,vetor[a].celular,vetor[a].outros);
+            fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[i].id,vetor[i].usando_quarto,vetor[i].nome,vetor[i].email,vetor[i].cpf,vetor[i].data_nascimento,vetor[i].celular,vetor[i].outros);
         }
         fclose(ff);
+        desalocar_quarto(a);
         free(vetor);
     }
 }
