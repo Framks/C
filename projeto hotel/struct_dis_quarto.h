@@ -62,32 +62,43 @@ void despejar_hospede()
 {
     listar_quartos();
     int aux;
-    char j[50];
     printf("digite o numero do quarto a ser vago: ");
     scanf("%d",&aux);
     if(aux !=0){
         int n=1;
         hospede *vetor = 0,y;
-        FILE *f = fopen("hospede.txt","w");
+        FILE *f = fopen("hospede.txt","r");
         while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
         {
             vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
             vetor[n-1] = y;
             n++;
         }
+        n--;
         for ( int i = 0;vetor[i].nome; i++)
         {
             if(vetor[i].usando_quarto == aux)
             {
-                for (int a = 0; vetor[i].nome[a]; a++)
-                {
-                    j[a]=vetor[i].nome[a];
-                }
+                printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, vetor[i].nome);
                 break;
             }
         }
-        printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, j);
-        free(vetor);
+        fclose(f);
+        for (int i=0;i<n;i++)
+        {
+            if (vetor[i].usando_quarto==aux)
+            {
+                vetor[i].usando_quarto = 0;
+                desalocar_quarto(vetor[i].id);
+            }
+        }
+        
+        FILE *ask = fopen("hospede.txt","w");
+        for(int a=0;a<n;a++)
+        {
+            fprintf(ask,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[a].id,vetor[a].usando_quarto,vetor[a].nome,vetor[a].email,vetor[a].cpf,vetor[a].data_nascimento,vetor[a].celular,vetor[a].outros);
+        }
+        fclose(ask);
     }
 }
 
@@ -119,16 +130,16 @@ void alocar_quarto(int id_usuario, int id_quarto)
     }
     fclose(as);
 
-    hospede *vetor = 0,y;
+    hospede *vetor = 0,h;
     n = 1;
     FILE *f = fopen("hospede.txt","r");
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&y.id,&y.usando_quarto,y.nome,y.email,y.cpf,y.data_nascimento,y.celular,y.outros) == 8)
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
     {
         vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
-        vetor[n-1] = y;
+        vetor[n-1] = h;
         n++;
     }
-
+    n--;
     for(int i=0;i<n;i++)
     {
         if(vetor[i].id == id_usuario)
@@ -137,13 +148,42 @@ void alocar_quarto(int id_usuario, int id_quarto)
             break;
         }
     }
-    free(f);
     fclose(f);
     FILE *ff = fopen("hospede.txt","w");
     for (int a = 0; a < n; a++)
     {
-        fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
+        fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[a].id,vetor[a].usando_quarto,vetor[a].nome,vetor[a].email,vetor[a].cpf,vetor[a].data_nascimento,vetor[a].celular,vetor[a].outros);
     }
     fclose(ff);    
     free(q);
+}
+
+void desalocar_quarto(int a)
+{
+    quarto *q=0, h;
+    int n=1;
+    FILE *jj = fopen("quarto.txt","r");
+    while (fscanf(jj,"%d %c %d",&h.id,&h.status,&h.hospede_atual) == 3)
+    {
+        q = (quarto*) realloc(q, n * sizeof(quarto));
+        q[n-1] = h;
+        n++; 
+    }
+    n--;
+    fclose(jj);
+    for(int i=0;i<n;i++)
+    {
+        if(q[i].hospede_atual==a)
+        {
+            q[i].status = 'd';
+            q[i].hospede_atual = 0;
+            break;
+        }
+    }
+    FILE *qua = fopen("quarto.txt","w");
+    for(int i=0;i<n;i++)
+    {
+        fprintf(qua,"%d %c %d\n",q[i].id,q[i].status,q[i].hospede_atual);
+    }
+    fclose(qua);
 }

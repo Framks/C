@@ -19,15 +19,21 @@ void quartos()
                 break;
             case 1:
                 listar_quartos_vagos();
-                scanf("%d",&erro);
+                printf("tecle enter para voltar ao menu!\n");
+                getchar();
+                getchar();
                 break;
             case 2:
                 listar_quartos();
-                scanf("%d",&erro);
+                printf("tecle enter para voltar ao menu!\n");
+                getchar();
+                getchar();
                 break;
             case 3:
                 despejar_hospede();
-                scanf("%d",&erro);
+                printf("tecle enter para voltar ao menu!\n");
+                getchar();
+                getchar();
                 break;
             case 4:
                 listar_hospede();

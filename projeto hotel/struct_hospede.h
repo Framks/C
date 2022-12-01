@@ -55,11 +55,10 @@ void inserir_hospede()
         essa parte da função cuida da leitura de todo o arquivo hospede.txt para guardar em um vetor 
     */
 
-    hospede y, *vetor = 0;
+    hospede h,*vetor = 0;
     int n = 1,idmaior =0;
     FILE *f = fopen("hospede.txt","r");
-    hospede h;
-    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
+    while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
     {
         if(h.id >= idmaior)
         {
@@ -69,21 +68,22 @@ void inserir_hospede()
         vetor[n-1] = h;
         n++;
     }
+    fclose(f);
     vetor = (hospede*) realloc(vetor, n * sizeof(hospede));
     vetor[n-1] = le_hospede();
-    vetor[n-1].id = idmaior + 1;
-    fclose(f);
+    idmaior +=1;
+    vetor[n-1].id = idmaior ;
     /*
         essa parte cuida de acresentar mais 1 hospede no caso o novo
     */
 
-    FILE *ff = fopen("hospede.txt","w");
+    FILE *hos = fopen("hospede.txt","w");
     for(int a=0;a<n;a++)
     {
-        fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
+        fprintf(hos,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[a].id,vetor[a].usando_quarto,vetor[a].nome,vetor[a].email,vetor[a].cpf,vetor[a].data_nascimento,vetor[a].celular,vetor[a].outros);
     }
+    fclose(hos);
     alocar_quarto(idmaior,vetor[n-1].usando_quarto);
-    fclose(ff);
     free(vetor);
 }
 
@@ -106,7 +106,7 @@ void listar_hospede()
             printf("sem informacoes adicionais.\n");
         }else
         {
-            printf("Infomacoes adicionais%s\n",y.outros);
+            printf("Infomacoes adicionais: %s\n",y.outros);
         }
         printf("=====================================\n");
     }
@@ -119,26 +119,25 @@ void excluir_hospede()
     listar_hospede();
     printf("digite o id do hospede a ser excluido: ");
     scanf("%d",&a);
-    printf("o hospede de id %d sera excluido do sistema. para confirmar digite\nnovamente o numro do id: ",a);
-    scanf("%d",&a);
     if(a)
     {
         hospede *vetor =0,h;
         int n=1;
         FILE *f = fopen("hospede.txt","r");
-        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n\n%[^\n]\n%[^\n]\n%[^\n]",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
+        while (fscanf(f,"%d\n%d\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]\n%[^\n]",&h.id,&h.usando_quarto,h.nome,h.email,h.cpf,h.data_nascimento,h.celular,h.outros) == 8)
         {
             vetor = (hospede*)realloc(vetor, n*sizeof(hospede));
             vetor[n-1] = h;
             n++;
         }
         n--;
-        //desalocar_quarto();
+        fclose(f);
         for (int i = 0; i < n; i++)
         {
             if(vetor[i].id==a)
             {
                 vetor[i] = vetor[n-1];
+                desalocar_quarto(a);
                 break;
             }
         }
@@ -146,7 +145,7 @@ void excluir_hospede()
         FILE *ff = fopen("hospede.txt","w");
         for(int i = 0;i<(n-1);i++)
         {
-            fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",(vetor[a]).id,(vetor[a]).usando_quarto,(vetor[a]).nome,(vetor[a]).email,(vetor[a]).cpf,(vetor[a]).data_nascimento,(vetor[a]).celular,(vetor[a]).outros);
+            fprintf(ff,"%d\n%d\n%s\n%s\n%s\n%s\n%s\n%s\n",vetor[a].id,vetor[a].usando_quarto,vetor[a].nome,vetor[a].email,vetor[a].cpf,vetor[a].data_nascimento,vetor[a].celular,vetor[a].outros);
         }
         fclose(ff);
         free(vetor);
