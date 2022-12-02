@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "struct_hospede.h"
-#include "struct_dis_quarto.h"
+#include "hospede.h"
+#include "quartos.h"
 
 void quartos()
 {
@@ -19,19 +19,19 @@ void quartos()
                 break;
             case 1:
                 listar_quartos_vagos();
-                printf("tecle enter para voltar ao menu!\n");
+                printf("tecle enter para voltar ao menu! ");
                 getchar();
                 getchar();
                 break;
             case 2:
                 listar_quartos();
-                printf("tecle enter para voltar ao menu!\n");
+                printf("tecle enter para voltar ao menu! ");
                 getchar();
                 getchar();
                 break;
             case 3:
                 despejar_hospede();
-                printf("tecle enter para voltar ao menu!\n");
+                printf("tecle enter para voltar ao menu! ");
                 getchar();
                 getchar();
                 break;

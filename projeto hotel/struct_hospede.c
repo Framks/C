@@ -1,22 +1,7 @@
+#include "quartos.h"
+#include "hospede.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-typedef struct
-{
-    /* 
-        aqui vai ficar a estrutura de quarto para o projeto
-    */
-    int id;
-    int usando_quarto;
-    char nome[50];
-    char email[50];
-    char cpf[14];
-    char data_nascimento[12];
-    char celular[15];
-    char outros[50];
-}hospede;
-
 
 hospede le_hospede()
 {

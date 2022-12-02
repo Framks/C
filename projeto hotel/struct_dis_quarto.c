@@ -1,13 +1,7 @@
+#include "hospede.h"
+#include "quartos.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-typedef struct
-{
-    int id;
-    char status;
-    int hospede_atual;
-} quarto;
 
 void listar_quartos_vagos()
 {
@@ -79,7 +73,7 @@ void despejar_hospede()
         {
             if(vetor[i].usando_quarto == aux)
             {
-                printf("o quarto de numero %d sera vago e o hospede %s sera despejado",aux, vetor[i].nome);
+                printf("o quarto de numero %d sera vago e o hospede %s sera despejado \n",aux, vetor[i].nome);
                 break;
             }
         }
