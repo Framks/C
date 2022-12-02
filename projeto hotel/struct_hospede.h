@@ -154,7 +154,6 @@ void excluir_hospede()
             }
                   
         }
-        
         FILE *ff = fopen("hospede.txt","w");
         for(int i = 0;i<(n-1);i++)
         {
