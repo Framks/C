@@ -2,7 +2,7 @@
 #include "quartos.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+ 
 void listar_quartos_vagos()
 {
     /*

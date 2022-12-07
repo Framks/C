@@ -15,4 +15,4 @@ void listar_quartos();
 void despejar_hospede();
 void alocar_quarto(int id_usuario,int id_quarto);
 void desalocar_quarto(int a);
-#endif
+#endif 
