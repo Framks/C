@@ -42,5 +42,6 @@ int main(){
         printf("segundo");
     }else{
         printf("empate");
+ 
     }
 }

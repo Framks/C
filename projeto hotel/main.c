@@ -7,7 +7,7 @@ void quartos()
     /*
         listar de imediato os quartos vagos e ocupados
     */
-    int i=1,erro , a,b;
+    int i=1, a,b;
     while (i)
     {
         system("cls");                          // limpar tela
@@ -49,7 +49,8 @@ void quartos()
                 break;
             default:
                 printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!\n");
-                scanf("%d",&erro);
+                getchar();
+                getchar();
             break;
         }
     }
@@ -60,7 +61,7 @@ void hospedes()
     /* 
         listar os hospedes que estão cadastrados no sistema
     */
-    int i,erro;
+    int i;
     while(i)
     {
         /*
@@ -103,7 +104,7 @@ void hospedes()
 
 int main()
 {
-    int rodar_menu=1,erro=0;
+    int rodar_menu=1;
     system("cls");                  // limpar tela de saida
     while (rodar_menu)
     {
@@ -122,15 +123,12 @@ int main()
             */
         case 0:
             break;
-
         case 1:
             quartos();
         	break;
-        
         case 2:
             hospedes();
         	break;
-
         default:
             printf("nao foi dessa vez.\ndigite 0 e confirme para voltar para o menu!");
             getchar();
@@ -139,5 +137,15 @@ int main()
         }
     }
     system("cls");
-    printf("volte sempre!!!");
+    printf("\t\t\t|-------------------------|\n");
+    printf("\t\t\t|         The             |\n");
+    printf("\t\t\t|            End          |\n");
+    printf("\t\t\t|                         |\n");
+    printf("\t\t\t|     Program Credits     |\n");
+    printf("\t\t\t|          Dev's:         |\n");
+    printf("\t\t\t|                         |\n");
+    printf("\t\t\t|     Guilherme Lessa     |\n");
+    printf("\t\t\t|      Maria Beatriz      |\n");
+    printf("\t\t\t|    Francisco Gabriel    |\n");
+    printf("\t\t\t|-------------------------|");
 }

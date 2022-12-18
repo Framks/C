@@ -1,6 +1,8 @@
 /*
 MOTIVAÇÃO
-Ao terminar uma prova de matemática, Marcelo e João estavam na duvida se teriam acertado as questões que perguntava se um numero era divisível por outro. Ao chegar em casa, Marcelo ainda com essa duvida, pediu para o seu irmão mais velho, você, ajudar ele fazendo um programa que diz se um número é divisível por outro.
+Ao terminar uma prova de matemática, Marcelo e João estavam na duvida se teriam acertado as questões 
+que perguntava se um numero era divisível por outro. Ao chegar em casa, Marcelo ainda com essa duvida, 
+pediu para o seu irmão mais velho, você, ajudar ele fazendo um programa que diz se um número é divisível por outro.
 
 AÇÃO
 Leia dois inteiros e diga se ambos são divisíveis por 3 ou por 5.
